@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_logme" default="compile.module.logme">
+  <dirname property="module.logme.basedir" file="${ant.file.module_logme}"/>
+  
+  <property name="module.jdk.home.logme" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.logme" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.logme" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.logme" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="logme.output.dir" value="${module.logme.basedir}/target/classes"/>
+  <property name="logme.testoutput.dir" value="${module.logme.basedir}/target/test-classes"/>
+  
+  <path id="logme.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="logme.module.production.classpath">
+    <path refid="${module.jdk.classpath.logme}"/>
+    <path refid="library.maven:_org.aspectj:aspectjweaver:1.8.10.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.3.9.release.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-log4j2:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-web:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-web:4.2.3.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-core:4.2.3.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-web:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+  </path>
+  
+  <path id="logme.runtime.production.module.classpath">
+    <pathelement location="${logme.output.dir}"/>
+    <path refid="library.maven:_org.aspectj:aspectjweaver:1.8.10.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.3.9.release.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-log4j2:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-web:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-web:4.2.3.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-core:4.2.3.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-web:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+  </path>
+  
+  <path id="logme.module.classpath">
+    <path refid="${module.jdk.classpath.logme}"/>
+    <pathelement location="${logme.output.dir}"/>
+    <path refid="library.maven:_org.aspectj:aspectjweaver:1.8.10.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.3.9.release.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-log4j2:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-web:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-web:4.2.3.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-core:4.2.3.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-web:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+  </path>
+  
+  <path id="logme.runtime.module.classpath">
+    <pathelement location="${logme.testoutput.dir}"/>
+    <pathelement location="${logme.output.dir}"/>
+    <path refid="library.maven:_org.aspectj:aspectjweaver:1.8.10.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-context:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:4.3.9.release.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-log4j2:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.boot:spring-boot-starter-web:unknown.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-web:4.2.3.release.classpath"/>
+    <path refid="library.maven:_aopalliance:aopalliance:1.0.classpath"/>
+    <path refid="library.maven:_org.springframework.security:spring-security-core:4.2.3.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-web:4.3.9.release.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.logme">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.logme">
+    <patternset refid="excluded.from.module.logme"/>
+  </patternset>
+  
+  <path id="logme.module.sourcepath">
+    <dirset dir="${module.logme.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="logme.module.test.sourcepath">
+    <dirset dir="${module.logme.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.logme" depends="compile.module.logme.production,compile.module.logme.tests" description="Compile module LogMe"/>
+  
+  <target name="compile.module.logme.production" depends="register.custom.compilers" description="Compile module LogMe; production classes">
+    <mkdir dir="${logme.output.dir}"/>
+    <javac2 destdir="${logme.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.logme}/javac">
+      <compilerarg line="${compiler.args.logme}"/>
+      <bootclasspath refid="logme.module.bootclasspath"/>
+      <classpath refid="logme.module.production.classpath"/>
+      <src refid="logme.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.logme"/>
+    </javac2>
+    
+    <copy todir="${logme.output.dir}">
+      <fileset dir="${module.logme.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.logme.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.logme.tests" depends="register.custom.compilers,compile.module.logme.production" description="compile module LogMe; test classes" unless="skip.tests">
+    <mkdir dir="${logme.testoutput.dir}"/>
+    <javac2 destdir="${logme.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.logme}/javac">
+      <compilerarg line="${compiler.args.logme}"/>
+      <bootclasspath refid="logme.module.bootclasspath"/>
+      <classpath refid="logme.module.classpath"/>
+      <src refid="logme.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.logme"/>
+    </javac2>
+    
+    <copy todir="${logme.testoutput.dir}">
+      <fileset dir="${module.logme.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.logme" description="cleanup module">
+    <delete dir="${logme.output.dir}"/>
+    <delete dir="${logme.testoutput.dir}"/>
+  </target>
+</project>
