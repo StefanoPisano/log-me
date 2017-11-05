@@ -1,6 +1,6 @@
-package interceptor;
+package it.interceptor;
 
-import annotation.LogMe;
+import it.annotation.LogMe;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,25 +15,29 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Aspect
 @Component
 public class LogMeInterceptor {
 
+    private List<Class> cClasses;
+    private List<Class> sOrClasses;
     private Logger log;
 
-    @Around("@annotation(annotation.LogMe)")
+    @Around(value="@annotation(it.annotation.LogMe)")
     public Object LogMe(ProceedingJoinPoint p) throws Throwable {
         final Method m = ((MethodSignature) p.getSignature()).getMethod();
         final LogMe l = m.getAnnotation(LogMe.class);
 
+        initLists();
         initLogger(m);
 
         StringBuilder sb = new StringBuilder();
-
         setForKind(l, m, sb);
         logMethod(m, sb);
         logParams(Arrays.asList(p.getArgs()).stream().map(v -> v.toString()).collect(Collectors.toList()), sb);
@@ -41,6 +45,17 @@ public class LogMeInterceptor {
         logIt(l.level(), sb);
 
         return p.proceed();
+    }
+
+    private void initLists() {
+        cClasses = new ArrayList<>();
+        cClasses.add(Controller.class);
+        cClasses.add(RestController.class);
+
+        sOrClasses = new ArrayList<>();
+        sOrClasses.add(Transactional.class);
+        sOrClasses.add(Service.class);
+        sOrClasses.add(Repository.class);
     }
 
     private void initLogger(Method m) {
@@ -62,25 +77,37 @@ public class LogMeInterceptor {
 
     private void checkForClassAnnotations(Method m, StringBuilder sb) {
         final Class<?> clazz = m.getDeclaringClass();
-        if(clazz.isAnnotationPresent(RestController.class)) {
-            sb.append("[@RestController]");
-            getLogClass(m, sb);
-            checkForControllerMapping(m, sb);
-        } else if(clazz.isAnnotationPresent(Controller.class)) {
-            sb.append("[@Controller]");
-            getLogClass(m, sb);
-            checkForControllerMapping(m, sb);
-        } else if(clazz.isAnnotationPresent(Service.class)) {
-            sb.append("[@Service]");
-            getLogClass(m, sb);
-            checkForServiceOrRepositoryMapping(m, sb);
-        } else if(clazz.isAnnotationPresent(Repository.class)) {
-            sb.append("[@Repository]");
-            getLogClass(m, sb);
-            checkForServiceOrRepositoryMapping(m, sb);
-        } else {
+        boolean check = false;
+
+        for (Class c : cClasses) {
+            if (clazz.isAnnotationPresent(c)) {
+                sb.append("[@")
+                        .append(c.getSimpleName())
+                        .append("]");
+                getLogClass(m, sb);
+                checkForControllerMapping(m, sb);
+
+                check = true;
+            }
+        }
+
+        for (Class c : sOrClasses) {
+            if (clazz.isAnnotationPresent(c)) {
+                sb.append("[@")
+                        .append(c.getSimpleName())
+                        .append("]");
+                getLogClass(m, sb);
+                checkForServiceOrRepositoryMapping(m, sb);
+
+                check = true;
+            }
+        }
+
+        if(!check) {
             getLogClass(m, sb);
         }
+
+
     }
 
     private void getLogClass(Method m, StringBuilder sb) {
